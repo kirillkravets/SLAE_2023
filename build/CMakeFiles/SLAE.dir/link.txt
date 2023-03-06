@@ -1,2 +1,0 @@
-/usr/bin/ar qc libSLAE.a CMakeFiles/SLAE.dir/SLAE.cpp.o
-/usr/bin/ranlib libSLAE.a

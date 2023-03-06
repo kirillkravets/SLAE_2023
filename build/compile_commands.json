@@ -1,7 +1,0 @@
-[
-{
-  "directory": "/home/kirill/vs codes c++/SLAE_projects/SLAE_2023/build/TESTS",
-  "command": "/usr/bin/g++   -g -Wall -Werror -o CMakeFiles/test.dir/iteration_methods_test.cpp.o -c \"/home/kirill/vs codes c++/SLAE_projects/SLAE_2023/TESTS/iteration_methods_test.cpp\"",
-  "file": "/home/kirill/vs codes c++/SLAE_projects/SLAE_2023/TESTS/iteration_methods_test.cpp"
-}
-]
