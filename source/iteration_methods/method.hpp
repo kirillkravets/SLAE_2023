@@ -100,7 +100,7 @@ vector<double> YacobiMethod(const CsrMatrix<double>& A, const vector<double>& b,
     std::ofstream fout;
     std::ofstream fout1;
     fout.open("/home/kirill/vs codes c++/SLAE_projects/files_txt/tsk4_jacobi_it.txt");
-    fout1.open("/home/kirill/vs codes c++/SLAE_projects/files_txt/tsk4_jacobi_lnr.txt");
+    fout1.open("/home/kirill/vs codes c++/SLAE_projects/SLAE_2023/SLAE_2023/files_txt//home/kirill/vs codes c++/SLAE_projects/SLAE_2023/SLAE_2023/files_txt/tsk4_jacobi_lnr.txt.txt");
 
     std::size_t size_vectors = x0.size();
     
@@ -147,7 +147,7 @@ vector<double> GaussSeidelMethod(const CsrMatrix<double>& A, const vector<double
     std::ofstream fout;
     std::ofstream fout1;
     fout.open("/home/kirill/vs codes c++/SLAE_projects/files_txt/tsk4_gauss_zeidel_it.txt");
-    fout1.open("/home/kirill/vs codes c++/SLAE_projects/files_txt/tsk4_gauss_zeidel_lnr.txt");
+    fout1.open("/home/kirill/vs codes c++/SLAE_projects/SLAE_2023/SLAE_2023/files_txt/tsk4_gauss_zeidel_lnr.txt");
 
 
     std::size_t size_vectors = x0.size();
@@ -155,6 +155,7 @@ vector<double> GaussSeidelMethod(const CsrMatrix<double>& A, const vector<double
     vector<double> r_i;
     vector<double> x = x0;
     vector<double> x1;
+    x1.resize(x.size());
 
     double norm = r + 1;
     size_t it = 1;
@@ -163,7 +164,6 @@ vector<double> GaussSeidelMethod(const CsrMatrix<double>& A, const vector<double
     {
         fout << it << '\n';
 
-        x1 = x;
         r_i = b - A * x1;
 
         for(size_t i = 0; i < size_vectors; i++){
@@ -181,9 +181,10 @@ vector<double> GaussSeidelMethod(const CsrMatrix<double>& A, const vector<double
             }
 
             x1[i] /= A(i, i);
-            x[i] = x1[i];
 
         }
+
+        x = x1;
 
         norm = Norm_Of_Vec(r_i);
 
