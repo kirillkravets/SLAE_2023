@@ -109,6 +109,7 @@ vector<double> YacobiMethod(const CsrMatrix<double>& A, const vector<double>& b,
     
     double norm = r + 1;
     size_t it = 1;
+    
     while (norm > r)
     {
         fout << it << '\n';
@@ -164,7 +165,7 @@ vector<double> GaussSeidelMethod(const CsrMatrix<double>& A, const vector<double
     {
         fout << it << '\n';
 
-        r_i = b - A * x1;
+        r_i = b - A * x;
 
         for(size_t i = 0; i < size_vectors; i++){
             
