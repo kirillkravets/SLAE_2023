@@ -10,7 +10,7 @@ vector<double> operator+(const vector<double>& a, const vector<double>& b)  {
     vector<double> result;
     result.reserve(a.size());
 
-    for (size_t i = 0; i < a.size(); i++){
+    for (std::size_t i = 0; i < a.size(); i++){
         result.push_back(a[i] + b[i]);
     }
 
@@ -22,7 +22,7 @@ vector<double> operator-(const vector<double>& a, const vector<double>& b)  {
     vector<double> result;
     result.reserve(a.size());
 
-    for (size_t i = 0; i < a.size(); i++){
+    for (std::size_t i = 0; i < a.size(); i++){
         result.push_back(a[i] - b[i]);
 
     }
@@ -57,7 +57,7 @@ double Norm_Of_Vec(const vector<double>& vec){
         result += vec[i] * vec[i];
     }
 
-    return result;
+    return sqrt(result);
 }
 
 
@@ -191,10 +191,7 @@ vector<double> GaussSeidelMethod(const CsrMatrix<double>& A, const vector<double
 
         fout1 << 0.5 * log(norm) << '\n';
 
-        it++;
-        
-        
-        
+        it++;  
     }
 
     fout.close();
