@@ -3,8 +3,7 @@
 
 #include <vector>
 #include <iostream>
-using std::vector;
-using std::size_t;
+
 
 
 namespace struct_DOC{
@@ -21,16 +20,16 @@ template <typename T>
 class CsrMatrix{
 private:
 
-    vector<T> elems;
-    vector<size_t> col_ind;
-    vector<size_t> amount_elems;
+    std::vector<T> elems;
+    std::vector<size_t> col_ind;
+    std::vector<size_t> amount_elems;
 
     size_t size_str; 
     size_t size_col;
 
 public:
     
-    CsrMatrix(const vector<struct_DOC::DOC<T>> &vector_of_matrix)
+    CsrMatrix(const std::vector<struct_DOC::DOC<T>> &vector_of_matrix)
     {
         elems.resize(vector_of_matrix.size());
         col_ind.resize(vector_of_matrix.size());
@@ -122,7 +121,7 @@ public:
 
     CsrMatrix<T> GetDownTriagMatr() const{
 
-        vector<struct_DOC::DOC<T>> down_vec;
+        std::vector<struct_DOC::DOC<T>> down_vec;
         down_vec.reserve(elems.size());
 
         for(size_t i = 0; i < size_col; i++){
@@ -139,7 +138,7 @@ public:
 
     CsrMatrix<T> GetUpTriagMatr() const{
 
-        vector<struct_DOC::DOC<T>> up_vec;
+        std::vector<struct_DOC::DOC<T>> up_vec;
         up_vec.reserve(elems.size());
 
         for(size_t i = 0; i < size_col; i++){
@@ -156,7 +155,7 @@ public:
 
     CsrMatrix<T> GetDiagMatr() const{
 
-        vector<struct_DOC::DOC<T>> diag_vec;
+        std::vector<struct_DOC::DOC<T>> diag_vec;
         diag_vec.reserve(elems.size());
 
         for(size_t i = 0; i < size_col; i++){
@@ -175,7 +174,7 @@ public:
         
         size_t N = this->GetAmountNozeroElems() + other_matr.GetAmountNozeroElems();
         
-        vector<struct_DOC::DOC<T>> vec_of_sum;
+        std::vector<struct_DOC::DOC<T>> vec_of_sum;
         vec_of_sum.reserve(N);
 
         for(size_t i = 0; i < size_col; i++){

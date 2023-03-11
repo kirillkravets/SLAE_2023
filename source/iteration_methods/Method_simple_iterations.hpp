@@ -9,7 +9,7 @@
 
 
 template <typename T>
-std::vector<T> MethodSimpleIterations(const CsrMatrix<T>& A, const vector<T>& b, const vector<T>& x0, const T& t, const T&  r) {
+std::vector<T> MethodSimpleIterations(const CsrMatrix<T>& A, const std::vector<T>& b, const std::vector<T>& x0, const T& t, const T&  r) {
     
     std::ofstream fout;
     std::ofstream fout1;
@@ -17,8 +17,8 @@ std::vector<T> MethodSimpleIterations(const CsrMatrix<T>& A, const vector<T>& b,
     fout.open("/home/kirill/vs codes c++/SLAE_projects/SLAE_2023/SLAE_2023/source/iteration_methods/iteration_txt_files/tsk4_msi_it.txt");
     fout1.open("/home/kirill/vs codes c++/SLAE_projects/SLAE_2023/SLAE_2023/source/iteration_methods/iteration_txt_files/tsk4_msi_lnr.txt");
 
-    vector<T> x = x0;
-    vector<T> r_i;
+    std::vector<T> x = x0;
+    std::vector<T> r_i;
     
     T norm = r + 1;
     

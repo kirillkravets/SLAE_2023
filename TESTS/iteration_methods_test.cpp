@@ -12,7 +12,7 @@ using namespace struct_DOC;
 TEST(test_1, task_3){
     
  
-    vector<DOC<double>> vec_of_matrix({
+    std::vector<DOC<double>> vec_of_matrix({
         {0, 0, 10 },\
         {0, 1, 1  },\
         {1, 0, 1  },\
@@ -23,30 +23,30 @@ TEST(test_1, task_3){
 
     CsrMatrix<double> A = CsrMatrix(vec_of_matrix);
 
-    vector<double> x0({0, 0, 0});
-    vector<double> b({20, 30, 1});
+    std::vector<double> x0({0, 0, 0});
+    std::vector<double> b({20, 30, 1});
 
     double r = 1e-12;
     // double t = 1e-4;
     
-    vector<double> x1 = Method_Yacobi(A, b, x0, r);
+    std::vector<double> x1 = Method_Yacobi(A, b, x0, r);
 
-    // for(size_t i = 0; i < x1.size(); i++){
-    //     std::cout << x1[i] << ' ';
-    // }
+    for(size_t i = 0; i < x1.size(); i++){
+        std::cout << x1[i] << ' ';
+    }
 
-    // std::cout << "\n\n";
+    std::cout << "\n\n";
 
-    vector<double> x2 = GaussSeidelMethod(A, b, x0, r);
+    std::vector<double> x2 = GaussSeidelMethod(A, b, x0, r);
 
-    // for(size_t i = 0; i < x2.size(); i++){
-    //     std::cout << x2[i] << ' ';
-    // }
+    for(size_t i = 0; i < x2.size(); i++){
+        std::cout << x2[i] << ' ';
+    }
 
-    // std::cout << "\n\n";
+    std::cout << "\n\n";
 
 
-    // vector<double> x3 = MethodSimpleIterations(A, b, x0, t, r);
+    // std::vector<double> x3 = MethodSimpleIterations(A, b, x0, t, r);
     // for(size_t i = 0; i < x3.size(); i++){
     //     std::cout << x3[i] << ' ';
     // }
@@ -60,7 +60,7 @@ TEST(test_1, task_3){
 TEST(test_2, task_4){
     
  
-    vector<DOC<double>> vec_of_matrix({
+    std::vector<DOC<double>> vec_of_matrix({
         {0, 0, 12 },\
         {0, 1, 17 },\
         {0, 2, 3  },\
@@ -74,16 +74,16 @@ TEST(test_2, task_4){
 
     CsrMatrix<double> A = CsrMatrix(vec_of_matrix);
 
-    vector<double> x0({1, 1, 1});
-    vector<double> b({1, 2, 3});
+    std::vector<double> x0({1, 1, 1});
+    std::vector<double> b({1, 2, 3});
 
-    vector<double> c({1e10, 1e-12, 1e5});
+    std::vector<double> c({1e10, 1e-12, 1e5});
     
 
     double r = 1e-12;
     double t = 1e-4;
     
-    vector<double> x1 = Method_Yacobi(A, b, x0, r);
+    std::vector<double> x1 = Method_Yacobi(A, b, x0, r);
 
     // for(size_t i = 0; i < x1.size(); i++){
     //     std::cout << x1[i] << ' ';
@@ -92,7 +92,7 @@ TEST(test_2, task_4){
     // double min1 = func(A, x1, b);
     // std::cout << "\nf(x_min): "<<  min1 << "\n\n";
     
-    vector<double> x2 = GaussSeidelMethod(A, b, x0, r);
+    std::vector<double> x2 = GaussSeidelMethod(A, b, x0, r);
 
     // for(size_t i = 0; i < x2.size(); i++){
     //     std::cout << x2[i] << ' ';
@@ -102,7 +102,7 @@ TEST(test_2, task_4){
     // std::cout << "\nf(x_min): "<<  min2 << "\n\n";
 
 
-    vector<double> x3 = MethodSimpleIterations(A, b, x0, t, r);
+    std::vector<double> x3 = MethodSimpleIterations(A, b, x0, t, r);
     // for(size_t i = 0; i < x3.size(); i++){
     //     std::cout << x3[i] << ' ';
     // }
