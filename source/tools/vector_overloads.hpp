@@ -49,5 +49,18 @@ std::vector<T> operator*(const T digit, const std::vector<T>& a){
     return a * digit;
 }
 
+template<typename T>
+std::vector<T> operator*(const std::vector<T>& a, const std::vector<T>& b){
+
+    T result = 0;
+
+    for(std::size_t i = 0; i < a.size(); i++)
+    {
+        result += a[i] * b[i];
+    }
+
+    return result;
+}
+
 
 #endif 
