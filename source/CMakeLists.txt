@@ -3,8 +3,7 @@ project(SLAE VERSION 0.1.0)
 
 set(CMAKE_CXX_STANDARD 17)
 
-
 add_compile_options(-Wall -Werror)
 
 file(GLOB_RECURSE source *.hpp)
-add_library(tridiagonal_lib INTERFACE ${source})
+add_library(slae_lib INTERFACE ${source})

@@ -7,7 +7,5 @@ set(CMAKE_CXX_STANDARD 17)
 
 add_compile_options(-Wall -Werror)
 
-add_subdirectory(source/csr_matrix)
-add_subdirectory(source/tridiagonal_matrix)
-add_subdirectory(source/iteration_methods)
+add_subdirectory(source)
 add_subdirectory(TESTS)

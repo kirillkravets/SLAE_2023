@@ -1,6 +1,8 @@
 #include <gtest/gtest.h>
-#include "../source/csr_matrix/csr_matrix.hpp"
-#include "../source/iteration_methods/method.hpp"
+#include "../source/Matrixes/csr_matrix/csr_matrix.hpp"
+#include "../source/iteration_methods/Gauss_Zeidel.hpp"
+#include "../source/iteration_methods/Method_Jacobi.hpp"
+#include "../source/iteration_methods/Method_simple_iterations.hpp"
 
 #include <iostream>
 
@@ -25,31 +27,31 @@ TEST(test_1, task_3){
     vector<double> b({20, 30, 1});
 
     double r = 1e-12;
-    double t = 1e-4;
+    // double t = 1e-4;
     
-    vector<double> x1 = YacobiMethod(A, b, x0, r);
+    vector<double> x1 = Method_Yacobi(A, b, x0, r);
 
-    for(size_t i = 0; i < x1.size(); i++){
-        std::cout << x1[i] << ' ';
-    }
+    // for(size_t i = 0; i < x1.size(); i++){
+    //     std::cout << x1[i] << ' ';
+    // }
 
-    std::cout << "\n\n";
+    // std::cout << "\n\n";
 
     vector<double> x2 = GaussSeidelMethod(A, b, x0, r);
 
-    for(size_t i = 0; i < x2.size(); i++){
-        std::cout << x2[i] << ' ';
-    }
+    // for(size_t i = 0; i < x2.size(); i++){
+    //     std::cout << x2[i] << ' ';
+    // }
 
-    std::cout << "\n\n";
+    // std::cout << "\n\n";
 
 
-    vector<double> x3 = MethodSimpleIterations(A, b, x0, t, r);
-    for(size_t i = 0; i < x3.size(); i++){
-        std::cout << x3[i] << ' ';
-    }
+    // vector<double> x3 = MethodSimpleIterations(A, b, x0, t, r);
+    // for(size_t i = 0; i < x3.size(); i++){
+    //     std::cout << x3[i] << ' ';
+    // }
 
-    std::cout << "\n\n";
+    // std::cout << "\n\n";
 
 }
 
@@ -81,32 +83,32 @@ TEST(test_2, task_4){
     double r = 1e-12;
     double t = 1e-4;
     
-    vector<double> x1 = YacobiMethod(A, b, x0, r);
+    vector<double> x1 = Method_Yacobi(A, b, x0, r);
 
-    for(size_t i = 0; i < x1.size(); i++){
-        std::cout << x1[i] << ' ';
-    }
+    // for(size_t i = 0; i < x1.size(); i++){
+    //     std::cout << x1[i] << ' ';
+    // }
 
-    double min1 = func(A, x1, b);
-    std::cout << "\nf(x_min): "<<  min1 << "\n\n";
+    // double min1 = func(A, x1, b);
+    // std::cout << "\nf(x_min): "<<  min1 << "\n\n";
     
     vector<double> x2 = GaussSeidelMethod(A, b, x0, r);
 
-    for(size_t i = 0; i < x2.size(); i++){
-        std::cout << x2[i] << ' ';
-    }
+    // for(size_t i = 0; i < x2.size(); i++){
+    //     std::cout << x2[i] << ' ';
+    // }
 
-    double min2 = func(A, x2, b);
-    std::cout << "\nf(x_min): "<<  min2 << "\n\n";
+    // double min2 = func(A, x2, b);
+    // std::cout << "\nf(x_min): "<<  min2 << "\n\n";
 
 
     vector<double> x3 = MethodSimpleIterations(A, b, x0, t, r);
-    for(size_t i = 0; i < x3.size(); i++){
-        std::cout << x3[i] << ' ';
-    }
+    // for(size_t i = 0; i < x3.size(); i++){
+    //     std::cout << x3[i] << ' ';
+    // }
 
-    double min3 = func(A, x3, b);
-    std::cout << "\nf(x_min): "<<  min3 << "\n\n";
+    // double min3 = func(A, x3, b);
+    // std::cout << "\nf(x_min): "<<  min3 << "\n\n";
 
 
 

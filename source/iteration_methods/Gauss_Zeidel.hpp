@@ -1,28 +1,33 @@
-#include "../csr_matrix/csr_matrix.hpp"
-#include<vector>
-#include<iostream>
+#ifndef GAUSS_ZEIDEL
+#define GAUSS_ZEIDEL
+
+#include "../Matrixes/csr_matrix/csr_matrix.hpp"
+#include "../tools/vector_overloads.hpp"
+#include "../tools/vec_norm.hpp"
+
 #include<fstream>
-#include <cmath>
-using std::size_t;
 
 
-vector<double> GaussSeidelMethod(const CsrMatrix<double>& A, const vector<double>& b, const vector<double>& x0, double r){
+template <typename T>
+std::vector<T> GaussSeidelMethod(const CsrMatrix<T>& A, const std::vector<T>& b, const std::vector<T>& x0, T r){
    
     std::ofstream fout;
     std::ofstream fout1;
-    fout.open("/home/kirill/vs codes c++/SLAE_projects/files_txt/tsk4_gauss_zeidel_it.txt");
-    fout1.open("/home/kirill/vs codes c++/SLAE_projects/SLAE_2023/SLAE_2023/files_txt/tsk4_gauss_zeidel_lnr.txt");
+
+    fout.open("/home/kirill/vs codes c++/SLAE_projects/SLAE_2023/SLAE_2023/source/iteration_methods/iteration_txt_files/tsk4_gauss_zeidel_it.txt");
+    fout1.open("/home/kirill/vs codes c++/SLAE_projects/SLAE_2023/SLAE_2023/source/iteration_methods/iteration_txt_files/tsk4_gauss_zeidel_lnr.txt");
 
 
     std::size_t size_vectors = x0.size();
     
-    vector<double> r_i;
-    vector<double> x = x0;
-    vector<double> x1;
+    std::vector<T> r_i;
+    std::vector<T> x = x0;
+    std::vector<T> x1;
     x1.resize(x.size());
 
-    double norm = r + 1;
-    size_t it = 1;
+    T norm = r + 1;
+
+    std::size_t it = 1;
 
     while (norm > r)
     {
@@ -30,17 +35,17 @@ vector<double> GaussSeidelMethod(const CsrMatrix<double>& A, const vector<double
 
         r_i = b - A * x;
 
-        for(size_t i = 0; i < size_vectors; i++){
+        for(std::size_t i = 0; i < size_vectors; i++){
             
             x1[i] = b[i];
             
-            for(size_t j = i + 1; j < size_vectors; j++)
+            for(std::size_t j = i + 1; j < size_vectors; j++)
             {               
                 x1[i] -= A(i, j) * x[j];
-
             }
 
-            for(size_t j = 0; j < i; j ++){
+            for(std::size_t j = 0; j < i; j ++)
+            {
                 x1[i] -= A(i, j) * x1[j];
             }
 
@@ -50,9 +55,9 @@ vector<double> GaussSeidelMethod(const CsrMatrix<double>& A, const vector<double
 
         x = x1;
 
-        norm = Norm_Of_Vec(r_i);
+        norm = Third_Norm(r_i);
 
-        fout1 << 0.5 * log(norm) << '\n';
+        fout1 << log(norm) << '\n';
 
         it++;  
     }
@@ -60,7 +65,7 @@ vector<double> GaussSeidelMethod(const CsrMatrix<double>& A, const vector<double
     fout.close();
     fout1.close();
 
-    std::cout << "Gauss-Seidel complete!\n";
-
-    return x1;
+    return x;
 }
+
+#endif
