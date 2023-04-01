@@ -27,32 +27,22 @@ TEST(test_1, task_3){
     std::vector<double> b({20, 30, 1});
 
     double r = 1e-12;
-    // double t = 1e-4;
+    std::vector<double> solution({1.594, 4.058, 0.594});
     
     std::vector<double> x1 = Method_Yacobi(A, b, x0, r);
 
-    for(size_t i = 0; i < x1.size(); i++){
-        std::cout << x1[i] << ' ';
+    for(std::size_t i = 0; i < 3; i++){
+        ASSERT_NEAR(x1[i], solution[i], 0.001)
+        << ">> FAILED YACOBI TEST COORD: " << i << '!' << std::endl;  
     }
 
-    std::cout << "\n\n";
 
     std::vector<double> x2 = GaussSeidelMethod(A, b, x0, r);
 
-    for(size_t i = 0; i < x2.size(); i++){
-        std::cout << x2[i] << ' ';
+    for(std::size_t i = 0; i < 3; i++){
+        ASSERT_NEAR(x2[i], solution[i], 0.001)
+        << ">> FAILED GAUSS-SEIDEL TEST COORD: " << i << '!' << std::endl;  
     }
-
-    std::cout << "\n\n";
-
-
-    // std::vector<double> x3 = MethodSimpleIterations(A, b, x0, t, r);
-    // for(size_t i = 0; i < x3.size(); i++){
-    //     std::cout << x3[i] << ' ';
-    // }
-
-    // std::cout << "\n\n";
-
 }
 
 
@@ -83,33 +73,29 @@ TEST(test_2, task_4){
     double r = 1e-12;
     double t = 1e-4;
     
+    std::vector<double> solution({0.080408, 0.000019, 0.011589});
+
     std::vector<double> x1 = Method_Yacobi(A, b, x0, r);
 
-    // for(size_t i = 0; i < x1.size(); i++){
-    //     std::cout << x1[i] << ' ';
-    // }
 
-    // double min1 = func(A, x1, b);
-    // std::cout << "\nf(x_min): "<<  min1 << "\n\n";
-    
+    for(std::size_t i = 0; i < 3; i++){
+        ASSERT_NEAR(x1[i], solution[i], 1e-6)
+        << ">> FAILED YACOBI TEST COORD: " << i << '!' << std::endl;  
+    }
+
     std::vector<double> x2 = GaussSeidelMethod(A, b, x0, r);
 
-    // for(size_t i = 0; i < x2.size(); i++){
-    //     std::cout << x2[i] << ' ';
-    // }
-
-    // double min2 = func(A, x2, b);
-    // std::cout << "\nf(x_min): "<<  min2 << "\n\n";
-
+    for(std::size_t i = 0; i < 3; i++){
+        ASSERT_NEAR(x2[i], solution[i], 1e-6)
+        << ">> FAILED GAUSS-SEIDEL TEST COORD: " << i << '!' << std::endl;  
+    }
 
     std::vector<double> x3 = MethodSimpleIterations(A, b, x0, t, r);
-    // for(size_t i = 0; i < x3.size(); i++){
-    //     std::cout << x3[i] << ' ';
-    // }
 
-    // double min3 = func(A, x3, b);
-    // std::cout << "\nf(x_min): "<<  min3 << "\n\n";
-
+    for(std::size_t i = 0; i < 3; i++){
+        ASSERT_NEAR(x3[i], solution[i], 1e-6)
+        << ">> FAILED SIMPLE ITERATIONS TEST COORD: " << i << '!' << std::endl;  
+    }
 
 
 }

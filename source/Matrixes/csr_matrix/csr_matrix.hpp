@@ -172,12 +172,12 @@ public:
 
     CsrMatrix<T> operator+(const CsrMatrix<T>&  other_matr) const {
         
-        size_t N = this->GetAmountNozeroElems() + other_matr.GetAmountNozeroElems();
+        std::size_t N = this->GetAmountNozeroElems() + other_matr.GetAmountNozeroElems();
         
         std::vector<struct_DOC::DOC<T>> vec_of_sum;
         vec_of_sum.reserve(N);
 
-        for(size_t i = 0; i < size_col; i++){
+        for(std::size_t i = 0; i < size_col; i++){
         
             for(size_t j = 0; j < size_str; j++){
                 if(((*this)(i,j) + other_matr(i,j)) > 0){
@@ -193,6 +193,18 @@ public:
         return result_matr;
     }
 
+
+    std::vector<T> Get_Elements() const {
+        return elems;
+    }
+
+    std::vector<std::size_t> Get_Col_Ind() const {
+        return col_ind;
+    }
+
+    std::vector<std::size_t> Get_Amount_Of_Elems() const{
+        return amount_elems;
+    }
 
 };
 

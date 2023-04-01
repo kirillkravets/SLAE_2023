@@ -16,14 +16,13 @@ std::vector<T> GaussSeidelMethod(const CsrMatrix<T>& A, const std::vector<T>& b,
 
     fout.open("/home/kirill/vs codes c++/SLAE_projects/SLAE_2023/SLAE_2023/source/iteration_methods/iteration_txt_files/tsk4_gauss_zeidel_it.txt");
     fout1.open("/home/kirill/vs codes c++/SLAE_projects/SLAE_2023/SLAE_2023/source/iteration_methods/iteration_txt_files/tsk4_gauss_zeidel_lnr.txt");
-
-
-    std::size_t size_vectors = x0.size();
     
     std::vector<T> r_i;
     std::vector<T> x = x0;
-    std::vector<T> x1;
-    x1.resize(x.size());
+
+    std::vector<T> A_elems = A.Get_Elements();
+    std::vector<std::size_t> A_col_ind = A.Get_Col_Ind();
+    std::vector<std::size_t> A_amount_of_elems = A.Get_Amount_Of_Elems(); 
 
     T norm = r + 1;
 
@@ -35,25 +34,25 @@ std::vector<T> GaussSeidelMethod(const CsrMatrix<T>& A, const std::vector<T>& b,
 
         r_i = b - A * x;
 
-        for(std::size_t i = 0; i < size_vectors; i++){
+        for(std::size_t i = 0; i < x.size(); i++){
             
-            x1[i] = b[i];
+            x[i] = b[i];
             
-            for(std::size_t j = i + 1; j < size_vectors; j++)
-            {               
-                x1[i] -= A(i, j) * x[j];
+            T diag;
+
+            for(std::size_t j = A_amount_of_elems[i]; j < A_amount_of_elems[i+1]; j++)
+            {   
+                if(A_col_ind[j] == i)
+                {
+                    diag = A(i, i); 
+                    continue;
+                } 
+
+                x[i] -= A_elems[j] * x[A_col_ind[j]];
             }
 
-            for(std::size_t j = 0; j < i; j ++)
-            {
-                x1[i] -= A(i, j) * x1[j];
-            }
-
-            x1[i] /= A(i, i);
-
+            x[i] /= diag;
         }
-
-        x = x1;
 
         norm = Third_Norm(r_i);
 
