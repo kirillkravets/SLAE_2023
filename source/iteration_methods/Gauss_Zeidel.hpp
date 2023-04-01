@@ -44,7 +44,7 @@ std::vector<T> GaussSeidelMethod(const CsrMatrix<T>& A, const std::vector<T>& b,
             {   
                 if(A_col_ind[j] == i)
                 {
-                    diag = A(i, i); 
+                    diag = A_elems[j]; 
                     continue;
                 } 
 
