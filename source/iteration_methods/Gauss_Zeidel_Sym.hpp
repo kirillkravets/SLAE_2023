@@ -6,7 +6,7 @@
 #include "../tools/vec_norm.hpp"
 
 template<typename T>
-std::vector<T> GaussZeidelSymFragment(const std::vector<T>& A_elems, const std::vector<std::size_t>& A_col_ind, const std::vector<std::size_t>& A_amount_of_elems, const std::vector<T> x0, const std::vector<T>& b)
+std::vector<T> GaussZeidelSymFragment(const std::vector<T>& A_elems, const std::vector<std::size_t>& A_col_ind, const std::vector<std::size_t>& A_amount_of_elems, const std::vector<T>& x0, const std::vector<T>& b)
 {
     std::vector<T> x = x0;
         
