@@ -4,6 +4,7 @@
 #include "../source/iteration_methods/Method_Jacobi.hpp"
 #include "../source/iteration_methods/Method_simple_iterations.hpp"
 #include "../source/iteration_methods/Chebyshev_msi.hpp"
+#include "../source/iteration_methods/Gauss_Zeidel_Sym.hpp"
 
 #include <iostream>
 
@@ -121,12 +122,17 @@ TEST(test_3, task_0){
 
     std::vector<double> x3 = ChebyshevMethod(A, b, x0, r, 9.5, 10.5, 32);
 
-
     std::cout << std::endl;
 
 
     for(std::size_t i = 0; i < 2; i++){
         ASSERT_NEAR(x3[i], solution[i], 1e-3)
+        << ">> FAILED SIMPLE ITERATIONS TEST COORD: " << i << '!' << std::endl;  
+    }
+
+    std::vector<double> x4 = GaussSeidelSymMethod(A, b, x0, r, 10.5 - 9.5);
+    for(std::size_t i = 0; i < x4.size(); i++){
+        ASSERT_NEAR(x4[i], solution[i], 1e-3)
         << ">> FAILED SIMPLE ITERATIONS TEST COORD: " << i << '!' << std::endl;  
     }
 }

@@ -33,7 +33,7 @@ std::vector<T> SSOR_method_fragment(const std::vector<T>& A_elems, const std::ve
         x[i] += (1 - omega) * x[i];
     }
 
-    for(std::size_t i = x.size() - 1; i >= 0; i--)
+    for(std::size_t i = x.size() - 2; i >= 0; i--)
     {
 
         x_i = x[i];
