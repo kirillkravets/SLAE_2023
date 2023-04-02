@@ -3,6 +3,7 @@
 #include "../source/iteration_methods/Gauss_Zeidel.hpp"
 #include "../source/iteration_methods/Method_Jacobi.hpp"
 #include "../source/iteration_methods/Method_simple_iterations.hpp"
+#include "../source/iteration_methods/Chebyshev_msi.hpp"
 
 #include <iostream>
 
@@ -91,13 +92,43 @@ TEST(test_2, task_4){
     }
 
     std::vector<double> x3 = MethodSimpleIterations(A, b, x0, t, r);
+    
 
     for(std::size_t i = 0; i < 3; i++){
         ASSERT_NEAR(x3[i], solution[i], 1e-6)
         << ">> FAILED SIMPLE ITERATIONS TEST COORD: " << i << '!' << std::endl;  
     }
 
+}
 
+TEST(test_3, task_0){
+    std::vector<DOC<double>> vec_of_matrix({
+        {0, 0, 10 },\
+        {0, 1, -0.5 },\
+        {1, 0, -0.5 },\
+        {1, 1, 10}
+    });
+
+    CsrMatrix<double> A = CsrMatrix(vec_of_matrix);
+
+    std::vector<double> x0({0, 0});
+    std::vector<double> b({1, 3});
+
+    std::vector<double> c({1e10, 1e-12, 1e5});
+
+    std::vector<double> solution({0.115288, 0.305764});
+    double r = 1e-12;
+
+    std::vector<double> x3 = ChebyshevMethod(A, b, x0, r, 9.5, 10.5, 32);
+
+
+    std::cout << std::endl;
+
+
+    for(std::size_t i = 0; i < 2; i++){
+        ASSERT_NEAR(x3[i], solution[i], 1e-3)
+        << ">> FAILED SIMPLE ITERATIONS TEST COORD: " << i << '!' << std::endl;  
+    }
 }
 
 
