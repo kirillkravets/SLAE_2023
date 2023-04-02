@@ -30,14 +30,14 @@ std::vector<T> GaussZeidelSymFragment(const std::vector<T>& A_elems, const std::
         x[i] /= diag;
     }
 
-    for(std::size_t i = x.size() - 1; i >= 0; i--)
+    for(std::size_t i = x.size() - 2; i > 0; i--)
     {
 
         x[i] = b[i];
         
         T diag;
 
-        for(std::size_t j = A_amount_of_elems[i]; j < A_amount_of_elems[i+1]; j++)
+        for(std::size_t j = A_amount_of_elems[i]; j < A_amount_of_elems[i + 1]; j++)
         {   
             if(A_col_ind[j] == i)
             {
@@ -60,8 +60,8 @@ std::vector<T> GaussSeidelSymMethod(const CsrMatrix<T>& A, const std::vector<T>&
    
     std::vector<T> r_i;
     
-    std::vector<T> A_elems = A.Get_Elements();
-    std::vector<std::size_t> A_col_ind = A.Get_Col_Ind();
+    std::vector<T>           A_elems           = A.Get_Elements();
+    std::vector<std::size_t> A_col_ind         = A.Get_Col_Ind();
     std::vector<std::size_t> A_amount_of_elems = A.Get_Amount_Of_Elems(); 
 
     std::vector<T> y0 = x0;
@@ -76,13 +76,11 @@ std::vector<T> GaussSeidelSymMethod(const CsrMatrix<T>& A, const std::vector<T>&
 
     while (norm > r)
     {
-        y0 = -mu0 * y + (2 * mu / rho) * gzsf;
+        y0 = -mu0 * y + 2 * (mu / rho) * gzsf;
 
-        mu0 = 2 / rho * mu - mu0;
+        mu0 = (2 / rho) * mu - mu0; // mu0 = mu_(i-1) -> mu_(i+1)
 
-        y0 /= mu0;
-
-        gzsf = GaussZeidelSymFragment(A_elems, A_col_ind, A_amount_of_elems, y0, b);
+        y0 = 1/ mu0 * y0;
 
         y = y0;
         mu = mu0;
@@ -91,7 +89,7 @@ std::vector<T> GaussSeidelSymMethod(const CsrMatrix<T>& A, const std::vector<T>&
 
         norm = Third_Norm(r_i);
 
-        it++;  
+        gzsf = GaussZeidelSymFragment(A_elems, A_col_ind, A_amount_of_elems, y0, b);
     }
 
     return y;
