@@ -9,7 +9,7 @@
 
 
 template <typename T>
-std::vector<T> Method_Yacobi(const CsrMatrix<T>& A, const std::vector<T>& b, const std::vector<T>& x0, const T& r){
+std::vector<T> Method_Yacobi(const CsrMatrix<T>& A, const std::vector<T>& b, const std::vector<T>& x0, const T r){
     
     std::ofstream fout2;
     std::ofstream fout3;

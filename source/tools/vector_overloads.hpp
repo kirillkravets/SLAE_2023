@@ -50,7 +50,7 @@ std::vector<T> operator*(const T digit, const std::vector<T>& a){
 }
 
 template<typename T>
-std::vector<T> operator*(const std::vector<T>& a, const std::vector<T>& b){
+T operator*(const std::vector<T>& a, const std::vector<T>& b){
 
     T result = 0;
 

@@ -9,7 +9,7 @@
 
 
 template <typename T>
-std::vector<T> MethodSimpleIterations(const CsrMatrix<T>& A, const std::vector<T>& b, const std::vector<T>& x0, const T& t, const T&  r) {
+std::vector<T> MethodSimpleIterations(const CsrMatrix<T>& A, const std::vector<T>& b, const std::vector<T>& x0, T t, T  r) {
     
     std::ofstream fout;
     std::ofstream fout1;
@@ -22,7 +22,7 @@ std::vector<T> MethodSimpleIterations(const CsrMatrix<T>& A, const std::vector<T
     
     T norm = r + 1;
     
-    size_t it = 1;
+    std::size_t it = 1;
 
     while(norm > r)
     { 
@@ -35,6 +35,7 @@ std::vector<T> MethodSimpleIterations(const CsrMatrix<T>& A, const std::vector<T
         fout1 << log(norm) << '\n';
         it++;
     }
+    
     fout.close();
     fout1.close();
 

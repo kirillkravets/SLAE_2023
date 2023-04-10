@@ -3,7 +3,7 @@
 
 #include "../Matrixes/csr_matrix/csr_matrix.hpp"
 #include "../tools/vector_overloads.hpp"
-
+#include<fstream>
 
 template<typename T>
 std::vector<T> SSOR_method_fragment(const std::vector<T>& A_elems, const std::vector<std::size_t>& A_col_ind, const std::vector<std::size_t>& A_amount_of_elems, const std::vector<T>& x0, const std::vector<T>& b, T omega)
@@ -65,8 +65,18 @@ std::vector<T> SSOR_method_fragment(const std::vector<T>& A_elems, const std::ve
 
 
 template <typename T>
-std::vector<T> SSOR_method(const CsrMatrix<T>& A, const std::vector<T>& b, const std::vector<T>& x0, T r, T rho, T omega){
+std::vector<T> SSOR_method(const CsrMatrix<T>& A, const std::vector<T>& b, const std::vector<T>& x0, T r, T rho, T omega, std::string it_name_txt, std::string lnr_name_txt){
    
+    std::ofstream fout;
+    std::ofstream fout1;
+
+    std::string dir_it = "/home/kirill/vs codes c++/tyyh5etyh5trh/SLAE_2023/TESTS/test_08_04/" + it_name_txt + ".txt";
+    std::string dit_lnr = "/home/kirill/vs codes c++/tyyh5etyh5trh/SLAE_2023/TESTS/test_08_04/" + lnr_name_txt + ".txt";
+    
+    fout.open(dir_it);
+    fout1.open(dit_lnr);
+    std::size_t it = 1;
+
     std::vector<T> r_i;
     
     std::vector<T>           A_elems           = A.Get_Elements();
@@ -83,6 +93,7 @@ std::vector<T> SSOR_method(const CsrMatrix<T>& A, const std::vector<T>& b, const
 
     T norm = r + 1;
 
+    
     while (norm > r)
     {
         y0 = -mu0 * y + 2 * (mu / rho) * gzsf;
@@ -93,18 +104,19 @@ std::vector<T> SSOR_method(const CsrMatrix<T>& A, const std::vector<T>& b, const
 
         y = y0;
         mu = mu0;
-
-        // for(std::size_t i = 0; i < y0.size(); i++){
-        //     std::cout << y0[i] << ' ';
-        // }
-        // std::cout << '\n';
-
         r_i = b - A * y;
 
         norm = Third_Norm(r_i);
 
         gzsf = SSOR_method_fragment(A_elems, A_col_ind, A_amount_of_elems, y0, b, omega);
+
+        fout << it << '\n';
+        fout1 << log(norm) << '\n';
+        it++;
     }
+
+    fout.close();
+    fout1.close();
 
     return y;
 }

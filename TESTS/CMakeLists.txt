@@ -6,6 +6,6 @@ set(CMAKE_CXX_STANDARD 17)
 
 find_package(GTest REQUIRED)
 
-add_executable(test iteration_methods_test.cpp)
-add_test(test COMMAND iteration_methods_test.cpp)
-target_link_libraries(test gtest)
+add_executable(test samost2.cpp)
+add_test(test COMMAND samost2.cpp)
+target_link_libraries(test gtest slae_lib)

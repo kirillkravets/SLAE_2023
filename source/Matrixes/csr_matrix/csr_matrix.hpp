@@ -103,8 +103,7 @@ public:
             
             for (size_t j = this->amount_elems[i]; j < amount_elems[i + 1]; j++) {
                 result_elem += other_vec[this->col_ind[j]] * this->elems[j];
-                
-                
+           
             }
 
             result_vec.push_back(result_elem);
