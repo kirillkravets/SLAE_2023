@@ -50,7 +50,7 @@ TEST(test_1, TASK_1){
     double lambda_max = 2 * (17 + 2 * 6 * cos(M_PI / 18));
     double lambda_min = 2 * (17 - 2 * 6 * cos(M_PI / 18));
 
-    std::vector<double> x = SteepestDescentMethod(A, x0, b, r);
+    //std::vector<double> x = SteepestDescentMethod(A, x0, b, r, "txt1" , "txt2");
 
     double tau1 = 1/ lambda_max;
     double tau2 = 2/ (lambda_max + lambda_min);
@@ -81,20 +81,20 @@ TEST(test_1, TASK_1){
     lambda_min += lambda_min * static_cast<double>(50) / 1000;
     lambda_max -= lambda_max * static_cast<double>(50) / 1000;
 
-    for(int i = 0; i < 94; i++){
-        std::string lambda_name = "cheb" + std::to_string(i) + "_lambda";
-        std::string time_name   = "cheb" + std::to_string(i) + "_time";
+    // for(int i = 0; i < 94; i++){
+    //     std::string lambda_name = "cheb" + std::to_string(i) + "_lambda";
+    //     std::string time_name   = "cheb" + std::to_string(i) + "_time";
 
-        lambda_min -= lambda_min * static_cast<double>(i) / 1000;
-        lambda_max += lambda_max * static_cast<double>(i) / 1000;
+    //     lambda_min -= lambda_min * static_cast<double>(i) / 1000;
+    //     lambda_max += lambda_max * static_cast<double>(i) / 1000;
 
-        double time = ChebyshevMsiTimeMethod(A, b, x0, r, lambda_min, lambda_max, pow(2, 8)); 
+    //     double time = ChebyshevMsiTimeMethod(A, b, x0, r, lambda_min, lambda_max, pow(2, 8)); 
 
-        fout << (lambda_max - lambda_min) << '\n';
-        fout1 << time << '\n';
+    //     fout << (lambda_max - lambda_min) << '\n';
+    //     fout1 << time << '\n';
 
-        std::cout << i << ":    " << time <<  "     " <<lambda_max << "  " << lambda_min << '\n';
-    }
+    //     //std::cout << i << ":    " << time <<  "     " <<lambda_max << "  " << lambda_min << '\n';
+    // }
 
 
     fout.close();
@@ -123,17 +123,32 @@ TEST(test_2, TASK_2){
     
     double r = 1e-13;
 
-    std::vector<double> x = SteepestDescentMethod(A, x0, b, r);
+    double lambda_max = 9;
+    double lambda_min = 6;
+
+    double tau1 = 0.9 * 2/ lambda_max;
+    double tau2 = 2/ (lambda_max + lambda_min);
+
+    std::vector<double> x1 = GradientDescentMethod(A, b, x0, r, tau1, "1_x1", "1_x4");
+
+    std::vector<double> x2 = GradientDescentMethod(A, b, x0, r, tau2, "2_x1", "2_x4");
+
+    std::vector<double> x3 = SteepestDescentMethod(A, x0, b, r, "3_x1", "3_x4");
     
+    std::vector<double> x4 = ChebyshevMsiMethod(A, b, x0, r, lambda_min, lambda_max, pow(2, 8), "4_x1", "4_x4");
+
     for(std::size_t i = 0; i < x0.size(); i++){
-        std::cout << x[i] << ' ';
+        std::cout << x1[i] << ' ' << x2[i] << ' ' <<  x3[i]  << ' ' << x4[i] << '\n';
     }
 
     std::cout << '\n';
 
-    double f_min = func(A, x, b) + 6;
+    double f_min1 = func(A, x1, b) + 6;
+    double f_min2 = func(A, x2, b) + 6;
+    double f_min3 = func(A, x3, b) + 6;
+    double f_min4 = func(A, x4, b) + 6;
 
-    std::cout << f_min;
+    std::cout << f_min1 << ' ' << f_min2 << ' ' << f_min3 << ' ' << f_min4;
 
     std::cout << '\n';
     
