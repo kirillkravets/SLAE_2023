@@ -11,7 +11,7 @@ namespace struct_DOC{
     template <typename T>
     struct DOC
     {
-        size_t i, j;
+        std::size_t i, j;
         T value;
     };
 }
@@ -205,7 +205,21 @@ public:
         return amount_elems;
     }
 
+    CsrMatrix<T> transpose() const {
+    
+        std::vector<T> vec_of_matr;
+        vec_of_matr.reserve(this->elems.size());
+        
+        for (std::size_t i = 0; i < col_ind.size(); ++i){
+            for (std::size_t j = this->amount_elems[j]; j < this->amount_elems[j + 1]; ++j)
+                vec_of_matr.push_back({this->cols[j], i, this->elems[j]});
+        }
+        return CsrMatrix<T>(vec_of_matr);
+    }
+
+
 };
+
 
 
 

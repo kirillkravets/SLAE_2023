@@ -8,70 +8,75 @@
 
 
 
-
+// BiCG method
 template<typename T>
-std::vector<T> BCG_method(const CsrMatrix<T>& A, const std::vector<T>& x_0, const std::vector<T>& b, T r0)
-{
-    
-    std::vector<T> x = x_0;
-   
+std::vector<T> BCG_method(const CsrMatrix<T> A,  const std::vector<T>& x0, const std::vector<T>& b, T tolerance)  {
+
+    CsrMatrix<T> At = A.transpose();
+
+    std::vector<T> x = x0;
+
+    std::vector<T> r0 = A * x - b;
+
+    T norm = Third_Norm(r0);
+
     std::vector<T> r = A * x - b;
+    std::vector<T> r_wave = r;
+
+    std::vector<T> p = r;
+    std::vector<T> p_wave = r;
     
-    T norm = Third_Norm(r);
+    std::vector<T> z;
+    std::vector<T> z_wave;
 
-    CsrMatrix<T> A_transp = A.transpose();
+    T rho;
+    T rho_previous;
 
-    std::size_t count = 0;
-   
-    while (norm > r0) {
+    T q;
+    T theta;
+
+    size_t count = 0;
+
+    while (norm > tolerance) {
+
         
-        std::vector<T> r1 = A * x - b;
-        std::vector<T> alpha_v = r1;
+        for (std::size_t i = 0; i < x.size(); ++i) 
+        {
 
-        std::vector<T> rr = r1;
-        std::vector<T> RR;
+            rho = r * r_wave;
 
-        std::vector<T> beta_v = r1;
-
-        T q, t, next_r0, previous_r0;
-        
-        
-        for (int i = 0; i < A.SizeStr(); ++i) {
-            
-            next_r0 = r1 * alpha_v;
-          
-            if (next_r0 == 0){ 
+            if (rho == 0) 
                 break;
+
+            if( i == 0){
+                rho_previous = rho;
             }
+
+            else {
+                theta = rho / rho_previous;
+
+                p = r + theta * p;
+                p_wave = r_wave + theta * p_wave;
+            }
+  
+            z = A * p;
+            z_wave = At * p_wave;
+
+            q = rho / (r_wave * z);
+
+            x = x - q * p;
+            r = r - q * z;
+
+            r_wave = r_wave - q * z_wave;
+
+            rho_previous = rho;
             
-            if (i != 0) {
-                t = next_r0 / previous_r0;
-                rr = r1 + t * rr;
-                beta_v = alpha_v + t * beta_v;
-            }
-           
-            else{
-                previous_r0 = next_r0;
-            }
-
-
-            RR = A * rr;
-
-            q = next_r0 / (alpha_v * RR);
-            previous_r0 = next_r0;
-          
-            alpha_v = alpha_v - q * (A_transp * beta_v);
-       
-            x = x - q * rr;
-            
-            r1 = r1 - q * RR;            
-
             norm = Third_Norm(r);
             count++;
         }
     }
+
     return x;
 }
-
 
 #endif
